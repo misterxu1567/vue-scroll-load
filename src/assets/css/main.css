@@ -2,20 +2,14 @@ body {
     padding: 0;
     margin: 0;
     margin: 0 auto;
-    min-width: 320px;
-    max-width: 640px;
     color: #333;
-    /*font-family: PingFangSC-regular, 'Avenir', Helvetica, Arial, sans-serif;*/
-    font-family: Hiragino Sans GB,SimHei,Helvetica,Microsoft YaHei,Arial,sans-serif;
+    font-family: "PingFang SC", "微软雅黑", "Microsoft YaHei", Helvetica, "Helvetica Neue", Tahoma, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     background: #fff;
 }
-.preventSrcoll{
-    position: fixed;
-    height: 100%;
-}
+
 * {
     padding: 0;
     margin: 0;
@@ -27,18 +21,38 @@ button {
     background: none;
 }
 
-section, article, header, footer, aside, nav {
+section,
+article,
+header,
+footer,
+aside,
+nav {
     padding: 0;
     margin: 0;
     display: block
 }
 
-input, select, button, textarea {
+input,
+select,
+button,
+textarea {
     font-size: 14px;
     font-family: \5FAE\8F6F\96C5\9ED1
 }
 
-input[type="button"], input[type="email"], input[type="image"], input[type="number"], input[type="password"], input[type="search"], input[type="submit"], input[type="reset"], input[type="text"], input[type="tel"], input[type="url"], button, textarea, select {
+input[type="button"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="submit"],
+input[type="reset"],
+input[type="text"],
+input[type="tel"],
+input[type="phone"],
+button,
+textarea,
+select {
     appearance: none;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -57,19 +71,10 @@ img {
 a {
     color: #333;
     text-decoration: none;
-    cursor: pointer
-}
-.left{
-    float: left;
-}
-.right{
-    float: right;
-}
-.clear {
-    clear: both;
-    overflow: hidden;
-    height: 0px;
-    line-height: 0px
+    cursor: pointer;
+    transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
 }
 
 .clearafter:after {
@@ -81,20 +86,56 @@ a {
     display: block
 }
 
+/* placeholder */
+
 ::-webkit-input-placeholder {
     color: #979797;
-    font-size: 0.28rem;
-}
-
-::-moz-placeholder {
-    color: #979797;
-    font-size: 0.28rem;
 }
 
 :-ms-input-placeholder {
     color: #979797;
-    font-size: 0.28rem;
 }
+
+/* 按钮点击状态 */
+
+button:active {
+    opacity: 0.8;
+}
+
+/* 0.5p细border */
+
+.bomBorder::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+    transform: scaleY(0.5);
+    -ms-transform: scaleY(0.5);
+    -webkit-transform: scaleY(0.5);
+}
+
+/*列表上下文字居中控制*/
+.lineHeight {
+    position: relative;
+}
+
+.lineHeight > span, .lineHeight > a > span{
+    line-height: 20px;
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+/*view*/
+
 .blackBg {
     position: fixed;
     left: 0;
@@ -104,55 +145,9 @@ a {
     background: rgba(0, 0, 0, 0.7);
     z-index: 99;
 }
-/*view*/
-#app {
-    display: block;
-    width: 100%;
-    height: auto;
-    position: relative;
-}
 
-/**/
-.head{
-    width: 100%;
-    height: 1.3rem;
-}
-.head .logo{
-    float: left;
-    width: 3.2rem;
-    height: 100%;
-    background: url("http://wenba-ooo.ufile.ucloud.cn/xbj-1v1-m-logo.png?0.4773049543967183") no-repeat 0.4rem center;
-    background-size: 2.5rem auto;
-}
-.head .txt{
-    float: right;
-    font-size: 0.36rem;
-    color:#3e3e3e;
-    line-height: 1.3rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    padding-right: 0.4rem;
-    box-sizing: border-box;
-}
-.blockPic{
-    display: block;
-    width: 100%;
-    height: auto;
-}
-.video{
-    display: block;
-    width: 100%;
-    height: auto;
-}
-.footer{
-    font-size: 0.24rem;
-    color:#b1b5b9;
-    line-height: 0.3rem;
-    padding: 0.34rem 0 0.5rem 0;
-    text-align: center;
-    background: #353639;
-}
-.hidden{
-    visibility: hidden;
+#app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }

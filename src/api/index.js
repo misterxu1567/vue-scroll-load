@@ -1,8 +1,7 @@
-// import Vue from 'vue'
+import Axios from 'axios';
 
 export default {
-  // none
-  // getModuleData (params) {
-  //   return Vue.http.post('/sem/pageConf', params)
-  // }
-}
+  getNewsList(params) {
+    return Axios.get('/newsTrends/list.json', { params: params })
+  }
+};

@@ -1,6 +1,6 @@
 # vue-scroll-load
 
-> 滚动加载demo
+> 滚动加载,slot版本
 
 ## Build Setup
 

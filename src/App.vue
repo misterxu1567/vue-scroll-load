@@ -1,62 +1,89 @@
 <template>
-    <div id="app">
-        <ScrollLoad :num="num" :scale="imgScale" :loadConfig="loadConfig">
-            <template v-slot:list="{item}">
-                <div class="cover" :style="{backgroundImage: `url(${item.cover})`}"></div>
-                <p class="name">{{item.title}}</p>
-            </template>
-        </ScrollLoad>
-    </div>
+  <div id="app">
+    <ScrollLoad :loadingOk="loadingOk" :dataList="dataList" @loadMore="getIndexListFn">
+      <template v-slot:list="{item}">
+        <div class="list">
+          <div class="img" :style="{backgroundImage:`url(${item.cover})`}"></div>
+          <p class="tit">{{item.title}}</p>
+        </div>
+      </template>
+    </ScrollLoad>
+  </div>
 </template>
 
 <script>
-    import ScrollLoad from './tpls/vue-scroll-load-x/index.vue';
+import ScrollLoad from "@/plugs/scroll";
+import Api from "@/api";
 
-    export default {
-        name: 'App',
-        components: {
-            ScrollLoad
-        },
-        data () {
-            return {
-                num: 1,
-                imgScale: 0.333,
-                loadConfig: {
-                    type: 'get',
-                    url: '/front/project/list.json',
-                    pageSize: 12
-                }
+export default {
+  name: "page",
+  components: {
+    ScrollLoad
+  },
+  data() {
+    return {
+      loadingOk: true,
+      //数据列表
+      dataList: [],
+      //分页
+      totalPage: 1,
+      //请求数据
+      submitForm: {
+        pageNum: 0,
+        pageSize: 10,
+        type: 3,
+        cId: "",
+        keyword: ""
+      }
+    };
+  },
+  computed: {},
+  mounted() {},
+  methods: {
+    // 获取数据
+    getIndexListFn() {
+      this.loadingOk = true; // 此处，配合 ScrollLoad 组件使用
+      if (this.submitForm.pageNum >= this.totalPage) {
+        // 没有更多数据
+        return false;
+      }
+      this.$loadingX.show();
+      this.submitForm.pageNum += 1;
+      Api.getNewsList(this.submitForm)
+        .then(res => {
+          let resBody = res.data;
+          if (resBody.code === 1) {
+            let data = res.data.data;
+            //success
+            this.dataList = [...this.dataList, ...data.contents];
+            this.totalPage = data.totalPage;
+            this.loadingOk = false;
+            if (this.submitForm.pageNum >= this.totalPage) {
+              alert('没有更多数据了');
             }
-        },
-        created () {
-        },
-        mounted (){
-
-        },
-        methods: {
-
-
-        }
+          }
+        })
+        .finally(() => {
+          this.$loadingX.hide();
+        });
     }
+  }
+};
 </script>
 
-<style>
-    @import './assets/css/main.css';
-    .cover{
-        width: 100%;
-        height: 150px;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center;
-    }
-    .name{
-        line-height: 30px;
-        padding: 10px 10px;
-        font-size: 12px;
-        color:#666;
-        box-sizing: border-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+<style scoped lang="less">
+@import "./assets/css/main.css";
+.list{
+  display: block;
+  width: 100%;
+  height: auto;
+  .img{
+    display: block;
+    width: 100%;
+    height: 2rem;
+  }
+  .tit{
+    font-size: 0.4rem;
+  }
+}
 </style>

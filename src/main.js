@@ -1,11 +1,14 @@
-import Vue from 'vue'
-import App from './App'
-import Router from './router'
+import Vue from 'vue';
+import App from './App.vue';
+// import router from './router';
+// 自定义模块
+import Toast from './plugs/toast';
+import Loading from './plugs/loading';
 
-/* eslint-disable no-new */
-var vm = new Vue({
-  el: '#app',
-  Router,
-  components: { App },
-  template: '<App/>'
-})
+Vue.use(Toast);
+Vue.use(Loading);
+Vue.config.productionTip = false;
+
+new Vue({
+  render: h => h(App)
+}).$mount('#app');
