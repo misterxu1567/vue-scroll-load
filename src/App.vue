@@ -45,6 +45,7 @@ export default {
       this.loadingOk = true; // 此处，配合 ScrollLoad 组件使用
       if (this.submitForm.pageNum >= this.totalPage) {
         // 没有更多数据
+        alert("没有更多数据了");
         return false;
       }
       this.$loadingX.show();
@@ -58,9 +59,6 @@ export default {
             this.dataList = [...this.dataList, ...data.contents];
             this.totalPage = data.totalPage;
             this.loadingOk = false;
-            if (this.submitForm.pageNum >= this.totalPage) {
-              alert('没有更多数据了');
-            }
           }
         })
         .finally(() => {
@@ -73,16 +71,16 @@ export default {
 
 <style scoped lang="less">
 @import "./assets/css/main.css";
-.list{
+.list {
   display: block;
   width: 100%;
   height: auto;
-  .img{
+  .img {
     display: block;
     width: 100%;
     height: 2rem;
   }
-  .tit{
+  .tit {
     font-size: 0.4rem;
   }
 }
